@@ -3,3 +3,7 @@ My goal is to gain an intuition for how bitwise operators work. My method is to 
 
 ## Built With:
 - Dash
+- p5.js
+
+## Note to self:
+It will be a good challenge to clean up and curry the JavaScript version, and to get the Dash version working (the main challenge is that each Output can be controlled by only one callback function.)
