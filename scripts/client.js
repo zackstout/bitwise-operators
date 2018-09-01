@@ -32,11 +32,10 @@ function setup() {
 // These are the 3 operators that take 1 input:
 function op_left() {
   var val1 = in1.value();
-  // console.log(in1.value());
-  // in1.value(33);
   var output = val1 << 1;
   in1.value(output);
   outlist.push(`${val1} << 1 = ${output}`);
+  createP(outlist[outlist.length - 1]);
 }
 
 function op_right() {
@@ -44,14 +43,17 @@ function op_right() {
   var output = val1 >> 1;
   in1.value(output);
   outlist.push(`${val1} >> 1 = ${output}`);
-
+  createP(outlist[outlist.length - 1]);
 }
 
+
+// Not sure this is right: should x return -(x+1)? How do bits give rise to negative numbers?
 function op_not() {
   var val1 = in1.value();
-  var output = ~ val1;
+  var output = ~val1;
   in1.value(output);
   outlist.push(`~ ${val1} = ${output}`);
+  createP(outlist[outlist.length - 1]);
 
 }
 
@@ -61,6 +63,8 @@ function op_and() {
   var val2 = in2.value();
   var output = val1 & val2;
   in1.value(output);
+  outlist.push(`${val1} & ${val2} = ${output}`);
+  createP(outlist[outlist.length - 1]);
 }
 
 function op_or() {
@@ -68,6 +72,8 @@ function op_or() {
   var val2 = in2.value();
   var output = val1 | val2;
   in1.value(output);
+  outlist.push(`${val1} | ${val2} = ${output}`);
+  createP(outlist[outlist.length - 1]);
 }
 
 function op_xor() {
@@ -75,13 +81,15 @@ function op_xor() {
   var val2 = in2.value();
   var output = val1 ^ val2;
   in1.value(output);
+  outlist.push(`${val1} ^ ${val2} = ${output}`);
+  createP(outlist[outlist.length - 1]);
 }
 
 
-function draw() {
-  background(255);
-  outlist.forEach(o => {
-    // Maybe we don't even need the #out:
-    createP(o);
-  });
-}
+// function draw() {
+//   // background(255);
+//   outlist.forEach(o => {
+//     // Maybe we don't even need the #out:
+//     x = createP(o);
+//   });
+// }
