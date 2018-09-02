@@ -2,9 +2,7 @@
 var in1, in2, out;
 var outlist = [];
 
-
 function setup() {
-  console.log('hi there you');
   in1 = createInput();
   in2 = createInput();
 
@@ -25,71 +23,47 @@ function setup() {
   out = createDiv();
 }
 
-// NOTE: All of these functions should accept strings as values
-
 // Oh, or maybe I was totally wrong, and they all take 2 inputs? Or maybe the shifters implicitly take 1 as input?
+function curryOps(op) {
+
+  return function() {
+    var val1 = in1.value();
+    var val2 = in2.value();
+    var output;
+    var oneInput = op === '<<' || op === '>>' || op === '~';
+
+    switch(op) {
+      case '<<': output = val1 << 1; break;
+      case '>>': output = val1 >> 1; break;
+      case '~': output = ~val1; break;
+      case '&': output = val1 & val2; break;
+      case '|': output = val1 | val2; break;
+      case '^': output = val1 ^ val2; break;
+    }
+
+    var x_out = '1';
+    if (op == '~') x_out = '';
+    var inString = parseInt(val1).toString(2);
+    var inString2 = parseInt(val2).toString(2);
+    var outString = output.toString(2);
+
+    in1.value(output);
+    if (oneInput) {
+      outlist.push(`${val1} (${inString}) ${op} ${x_out} = ${output} (${outString})`);
+    } else {
+      outlist.push(`${val1} (${inString}) ${op} ${val2} (${inString2}) = ${output} (${outString})`);
+    }
+    createP(outlist[outlist.length - 1]);
+  };
+
+}
 
 // These are the 3 operators that take 1 input:
-function op_left() {
-  var val1 = in1.value();
-  var output = val1 << 1;
-  in1.value(output);
-  outlist.push(`${val1} << 1 = ${output}`);
-  createP(outlist[outlist.length - 1]);
-}
+var op_left = curryOps('<<');
+var op_right = curryOps('>>');
+// Not sure this is right: should x return -(x+1)? How do bits give rise to negative numbers? Yeah, it's intended.
+var op_not = curryOps('~');
 
-function op_right() {
-  var val1 = in1.value();
-  var output = val1 >> 1;
-  in1.value(output);
-  outlist.push(`${val1} >> 1 = ${output}`);
-  createP(outlist[outlist.length - 1]);
-}
-
-
-// Not sure this is right: should x return -(x+1)? How do bits give rise to negative numbers?
-function op_not() {
-  var val1 = in1.value();
-  var output = ~val1;
-  in1.value(output);
-  outlist.push(`~ ${val1} = ${output}`);
-  createP(outlist[outlist.length - 1]);
-
-}
-
-// These are the 3 operators that take 2 inputs:
-function op_and() {
-  var val1 = in1.value();
-  var val2 = in2.value();
-  var output = val1 & val2;
-  in1.value(output);
-  outlist.push(`${val1} & ${val2} = ${output}`);
-  createP(outlist[outlist.length - 1]);
-}
-
-function op_or() {
-  var val1 = in1.value();
-  var val2 = in2.value();
-  var output = val1 | val2;
-  in1.value(output);
-  outlist.push(`${val1} | ${val2} = ${output}`);
-  createP(outlist[outlist.length - 1]);
-}
-
-function op_xor() {
-  var val1 = in1.value();
-  var val2 = in2.value();
-  var output = val1 ^ val2;
-  in1.value(output);
-  outlist.push(`${val1} ^ ${val2} = ${output}`);
-  createP(outlist[outlist.length - 1]);
-}
-
-
-// function draw() {
-//   // background(255);
-//   outlist.forEach(o => {
-//     // Maybe we don't even need the #out:
-//     x = createP(o);
-//   });
-// }
+var op_and = curryOps('&');
+var op_or = curryOps('|');
+var op_xor = curryOps('^');

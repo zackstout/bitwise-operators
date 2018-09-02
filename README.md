@@ -7,3 +7,5 @@ My goal is to gain an intuition for how bitwise operators work. My method is to 
 
 ## Note to self:
 It will be a good challenge to clean up and curry the JavaScript version, and to get the Dash version working (the main challenge is that each Output can be controlled by only one callback function.)
+
+Note: Usually we use the first bit of a number to represent its sign (1 for negative, 0 for positive). Hence, right shift preserves sign.
