@@ -35,7 +35,7 @@ function curryOps(op) {
     switch(op) {
       case '<<': output = val1 << 1; break;
       case '>>': output = val1 >> 1; break;
-      case '~': output = ~val1; break;
+      case '~': output = ~ val1; break;
       case '&': output = val1 & val2; break;
       case '|': output = val1 | val2; break;
       case '^': output = val1 ^ val2; break;
